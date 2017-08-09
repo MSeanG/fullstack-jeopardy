@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Category from './Category';
+import { GameBoardStyles } from '../styles/Game'
 
-class GameBoard extends Component {
-  render() {
-    return (
-      <div>
-        Hello From Game Board
-        {this.props.match.params.gameId}
-      </div>
-    );
-  }
-}
+const GameBoard = (props) => {
+  return (
+    <GameBoardStyles>
+      {props.categories.map((category, i) => {
+        return <Category key={i} category={category} /> 
+      })}
+    </GameBoardStyles>
+  );
+};
 
 export default GameBoard;
