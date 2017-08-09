@@ -1,51 +1,39 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-// Use native promises
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose');
 
-var GameSchema = new Schema({
-  user: String,
-  points: Number,
-  board: [Boolean],
-  categories: [CategorySchema]
-});
-
-var CategorySchema = new Schema({
-  name: String,
-  questions: [QuestionSchema]
-});
-
-var QuestionSchema = new Schema({
+const questionSchema = mongoose.Schema({
   value: Number,
   question: String,
   answer: String
 });
 
-//var UserSchema = new Schema({
-//  first_name: String,
-//  email: { type: String, required: true, unique: true },
-//  created_at: Date,
-//  updated_at: Date,
-//  items: [ItemSchema]
-//});
+const categorySchema = mongoose.Schema({
+  name: String,
+  questions: [questionSchema],
+});
 
-//UserSchema.pre('save', function(next){
-//  now = new Date();
-//  this.updated_at = now;
-//  if ( !this.created_at ) {
-//    this.created_at = now;
-//  }
-//  next();
-//});
+const gameSchema = mongoose.Schema({
+  user: String,
+  points: Number,
+  board: [Boolean],
+  categories: [categorySchema],
+});
 
-
-var GameModel = mongoose.model("game", GameSchema);
-var CategoryModel = mongoose.model("category", CategorySchema);
-var QuestionModel = mongoose.model("question", QuestionSchem)
+gameSchema.pre('save', function(next){
+  const emptyBoard = [
+    false, false, false, false, false, false,
+    false, false, false, false, false, false,
+    false, false, false, false, false, false,
+    false, false, false, false, false, false, 
+    false, false, false, false, false, false
+  ];
+  this.board = emptyBoard;
+  next();
+})
+const Question = mongoose.model('Question', questionSchema);
+const Category = mongoose.model('Category', categorySchema);
+const Game = mongoose.model('Game', gameSchema);
 
 module.exports = {
-  Game: GameModel,
-  Category: CategoryModel,
-  Question: QuestionModel
-};
+  Question, Category, Game
+}
