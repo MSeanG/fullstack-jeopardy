@@ -23,7 +23,7 @@ export const TileStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: ${props => props.active ? "1rem" : "2rem"};
   font-family: 'Lato';
   font-weight: 700;
   color: ${props => props.question ? "#ffff5f" : "FFF"}

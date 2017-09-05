@@ -11,8 +11,8 @@ class App extends Component {
       <Router>
         <div>
           <NavBar>
-            <Link to="/">Home</Link>
-            <Link to="/add-categories">Add Category</Link>
+            <Link className="left" to="/">Home</Link>
+            <Link className="right" to="/add-categories">Add Category</Link>
           </NavBar> 
           <div>
             <Route exact path="/" component={Home} />

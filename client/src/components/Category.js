@@ -7,7 +7,7 @@ const Category = (props) => {
     <CategoryStyle>
       <TileStyle>{props.category.name}</TileStyle>
       {props.category.questions.map((question, i) => {
-        return <Question key={i} question={question} />
+        return <Question key={i} submitAnswer={props.submitAnswer} question={question} />
       })}
     </CategoryStyle>
   );
